@@ -1,3 +1,16 @@
+# Ignore virtual environment
 /venv/
+
+# Ignore Visual Studio Code settings
 /.vscode/
-/sklep_monopolowy/*/__pycache__/
+
+# Ignore compiled Python files
+**/__pycache__/
+*.py[cod]
+
+# Ignore Django migrations
+/sklep_monopolowy/migrations/
+/monopolowy/migrations/
+
+# Ignore the SQLite database file
+/db.sqlite3
