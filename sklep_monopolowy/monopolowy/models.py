@@ -30,7 +30,7 @@ class Asortyment(models.Model):
     opis = models.TextField(max_length=1000)
 
     def __str__(self):
-        return f'{self.typ_choice} : {self.nazwa} : {self.typ_produktu} : {str(self.cena)} : {self.opis}'
+        return f'{self.nazwa} : {self.typ_produktu} : {str(self.cena)} : {self.opis[:15]}...'
 
     class Meta:
         verbose_name_plural = "Asortyment"
