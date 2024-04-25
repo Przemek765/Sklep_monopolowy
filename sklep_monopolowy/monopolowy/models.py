@@ -11,7 +11,7 @@ class Klient(models.Model):
     adres = models.CharField(max_length=1000)
 
     def __str__(self):
-        return f'{self.imie} : {self.nazwisko} : {self.wiek} : {self.adres}'
+        return f'{self.imie} {self.nazwisko} - {self.wiek}, {self.adres}'
 
     class Meta:
         verbose_name_plural = "Klienci"
@@ -30,7 +30,7 @@ class Asortyment(models.Model):
     opis = models.TextField(max_length=1000)
 
     def __str__(self):
-        return f'{self.nazwa} : {self.typ_produktu} : {str(self.cena)} : {self.opis[:15]}...'
+        return f'Typ: {self.typ_produktu}; Nazwa: {self.nazwa}; Cena: {str(self.cena)} zł; {self.opis[:15]}...'
 
     class Meta:
         verbose_name_plural = "Asortyment"
@@ -38,11 +38,12 @@ class Asortyment(models.Model):
 
 class Zamowienie(models.Model):
     klient = models.ForeignKey(Klient, on_delete=models.CASCADE)
-    asortyment = models.ForeignKey(Asortyment, on_delete=models.CASCADE)
+    asortyment = models.ManyToManyField(Asortyment, blank=True, related_name='asortyment')
+    # asortyment = models.ForeignKey(Asortyment, on_delete=models.CASCADE)
     data = models.DateField()
 
     def __str__(self):
-        return f'{self.klient} : {self.asortyment} : {self.data}'
+        return f'{self.klient} - {self.data}'
 
     class Meta:
         verbose_name_plural = "Zamówienia"

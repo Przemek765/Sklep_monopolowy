@@ -1,0 +1,23 @@
+{% extends 'monopolowy/base.html' %}
+
+{% block title %}
+    Monopolowy
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="jumbotron">
+            <h1 class="display-4">
+                Witaj na stronie
+                {% if not user_authenticated %}
+                    {{ username }}
+                {% endif %}
+            </h1>
+            {% if  not_authenticated %}
+                <hr class="my-4">
+                <p>Zaloguj się, aby uzyskać dostęp do pełnych funkcji naszej strony.</p>
+                <a class="btn btn-secondary btn-lg" href="{% url 'monopolowy/login' %}" role="button">Zaloguj się</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
