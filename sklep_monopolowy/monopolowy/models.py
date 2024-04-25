@@ -2,12 +2,20 @@ from django.db import models
 from django.core.validators import MinValueValidator
 from django.core.validators import MaxValueValidator
 
+
 # Create your models here.
 class Klient(models.Model):
-    imie = models.CharField(max_length=100) 
-    nazwisko = models.CharField(max_length=100) 
+    imie = models.CharField(max_length=100)
+    nazwisko = models.CharField(max_length=100)
     wiek = models.IntegerField(validators=[MinValueValidator(18), MaxValueValidator(100)])
     adres = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return f'{self.imie} : {self.nazwisko} : {self.wiek} : {self.adres}'
+
+    class Meta:
+        verbose_name_plural = "Klienci"
+
 
 class Asortyment(models.Model):
     typ_choice = [
@@ -21,12 +29,20 @@ class Asortyment(models.Model):
     cena = models.DecimalField(max_digits=7, decimal_places=2)
     opis = models.TextField(max_length=1000)
 
-class Zamowienia(models.Model):
+    def __str__(self):
+        return f'{self.typ_choice} : {self.nazwa} : {self.typ_produktu} : {str(self.cena)} : {self.opis}'
+
+    class Meta:
+        verbose_name_plural = "Asortyment"
+
+
+class Zamowienie(models.Model):
     klient = models.ForeignKey(Klient, on_delete=models.CASCADE)
     asortyment = models.ForeignKey(Asortyment, on_delete=models.CASCADE)
     data = models.DateField()
 
+    def __str__(self):
+        return f'{self.klient} : {self.asortyment} : {self.data}'
 
-
-
-
+    class Meta:
+        verbose_name_plural = "Zamówienia"
