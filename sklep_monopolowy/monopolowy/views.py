@@ -1,8 +1,9 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 import django.contrib.auth
+
+from .models import Zamowienie, Asortyment
 
 
 # Create your views here.
@@ -10,6 +11,8 @@ def index(request):
     context = {}
     if request.user.is_authenticated:
         context['username'] = request.user.username
+        if request.user.is_superuser:
+            context['logged_as_admin'] = True
     else:
         context['not_authenticated'] = True
 
@@ -26,7 +29,33 @@ def logout(request):
 
 
 def zamowienia(request):
-    return render(request, 'monopolowy/zamowienia.html')
+    if request.user.is_authenticated:
+        zamowienie = Zamowienie.objects.get(klient_id=request.user.id)
+        context = {
+            'zamowienia': [zamowienie]
+        }
+        return render(request, 'monopolowy/zamowienia.html', context)
+    else:
+        context = {
+            'error': 'Błąd logowania',
+            'error_details': 'Nie jesteś zalogowany do konta.'
+        }
+        return render(request, 'monopolowy/not_logged.html', context)
+
+
+def asortyment(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        items = Asortyment.objects.all()
+        context = {
+            'asortyment': items
+        }
+        return render(request, 'monopolowy/asortyment.html', context)
+    else:
+        context = {
+            'error': 'Błąd uprawnień',
+            'error_details': 'Nie masz uprawnień dostępu do tej strony.'
+        }
+        return render(request, 'monopolowy/not_logged.html', context)
 
 
 def login(request):

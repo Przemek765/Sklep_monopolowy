@@ -5,5 +5,51 @@
 {% endblock %}
 
 {% block content %}
-    <h1> Zamowienia </h1>
+    <div class="container">
+    <h1>Zamówienia</h1>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Asortyment</th>
+          <th scope="col">Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for zamowienie in zamowienia %}
+        <tr>
+          <th scope="row">{{ zamowienie.id }}</th>
+          <td>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nazwa</th>
+                        <th>Typ produktu</th>
+                        <th>Cena</th>
+                        <th>Opis</th>
+                        <th>Zdjęcie</th>
+                    </tr>
+                </thead>
+                <tbody>
+            {% for asortyment in zamowienie.asortyment.all %}
+                <tr>
+                    <td>{{ asortyment.id }}</td>
+                    <td>{{ asortyment.nazwa }}</td>
+                    <td>{{ asortyment.typ_produktu }}</td>
+                    <td>{{ asortyment.cena }}</td>
+                    <td>{{ asortyment.opis }}</td>
+                    <td>{{ asortyment.zdjecie }}</td>
+                </tr>
+            {% if not forloop.last %} {% endif %}
+            {% endfor %}
+            </tbody>
+            </table>
+          </td>
+          <td>{{ zamowienie.data }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 {% endblock %}

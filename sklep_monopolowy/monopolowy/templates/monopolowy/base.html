@@ -19,11 +19,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
+                    {% if logged_as_admin %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="{% url 'monopolowy/asortyment' %}">Asortyment</a>
                     </li>
+                    {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Inny link</a>
+                        <a class="nav-link" href="{% url 'monopolowy/zamowienia' %}">Zamówienia</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">

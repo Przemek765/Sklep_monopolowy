@@ -7,6 +7,7 @@ from .views import *
 urlpatterns = [
     path('', index, name='monopolowy/index'),
     path('zamowienia/', zamowienia, name='monopolowy/zamowienia'),
+    path('asortyment/', asortyment, name='monopolowy/asortyment'),
     path('login/', login, name='monopolowy/login'),
     path('register/', register, name='monopolowy/register'),
     path('profile/', profile, name='monopolowy/profile'),
