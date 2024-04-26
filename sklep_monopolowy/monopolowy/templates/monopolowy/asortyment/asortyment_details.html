@@ -1,0 +1,25 @@
+{% extends 'monopolowy/base.html' %}
+{% load static %}
+{% block title %}
+    Szczegóły produktu
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4">
+        {% if asortyment.zdjecie %}
+            <img class="img-fluid rounded" src="{% static 'monopolowy/pictures/'|add:asortyment.zdjecie %}" alt="{{ asortyment.nazwa }}">
+        {% endif %}
+    </div>
+    <div class="col-lg-8">
+      <h1 class="mt-4">{{ asortyment.nazwa }}</h1>
+      <p class="lead">Typ produktu: {{ asortyment.typ_produktu }}</p>
+      <p>Cena: {{ asortyment.cena }} PLN</p>
+      <p>{{ asortyment.opis }}</p>
+      <a href="{% url 'monopolowy/asortyment' %}" class="btn btn-primary"><--</a>
+      <a href="{% url 'monopolowy/asortyment_edit' asortyment.id %}" class="btn btn-primary">Edytuj</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

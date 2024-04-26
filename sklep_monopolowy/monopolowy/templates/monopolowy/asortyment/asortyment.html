@@ -1,0 +1,28 @@
+{% extends 'monopolowy/base.html' %}
+{% load static %}
+
+{% block title %}
+    Asortyment
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    {% for item in asortyment %}
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+    <a class="link-dark link-underline-opacity-0" href="{% url 'monopolowy/asortyment_details' item.id %}">
+      <div class="card h-100">
+            {% if item.zdjecie %}
+            <img class="card-img-top" src="{% static 'monopolowy/pictures/'|add:item.zdjecie %}" alt="{{ item.nazwa }}">
+            {% endif %}
+            <div class="card-body">
+              <h4 class="card-title">{{ item.nazwa }}</h4>
+              <h5>{{ item.cena }} PLN</h5>
+            </div>
+      </div>
+    </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

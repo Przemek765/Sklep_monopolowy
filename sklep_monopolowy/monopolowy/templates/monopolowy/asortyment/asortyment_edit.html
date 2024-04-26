@@ -1,0 +1,18 @@
+{% extends 'monopolowy/base.html' %}
+{% load static %}
+{% block title %}
+    Edycja produktu
+{% endblock %}
+
+{% block content %}
+<div class="container card">
+    <div class="card-head">Asortyment Edycja</div>
+    <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+    </form>
+    </div>
+</div>
+{% endblock %}
