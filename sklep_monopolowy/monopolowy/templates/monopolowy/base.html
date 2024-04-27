@@ -8,7 +8,17 @@
 
     <link href="{% static 'monopolowy/bootstrap-5.3.3-dist/css/bootstrap.css' %}" rel="stylesheet">
     <script src="{% static 'monopolowy/bootstrap-5.3.3-dist/js/bootstrap.js' %}"></script>
-
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        main {
+            min-height: 80%;
+            position: relative;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -41,12 +51,49 @@
         </div>
     </nav>
 
-    <main class="container mt-5">
-        {% block content %}
+<main class="container mt-5">
+    {% block content %}
 
 
 
-        {% endblock %}
-    </main>
+    {% endblock %}
+</main>
+
+
+<footer class="bg-dark text-white py-3">
+    <style>
+        footer a, p {
+            font-size: 12px;
+            line-height: 7px;
+        }
+        footer h5 {
+            text-decoration: underline;
+            text-underline-offset: 5px;
+        }
+    </style>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h5>Nawigacja</h5>
+        <ul class="list-unstyled">
+          <li><a class="link-underline-opacity-0 link-light" href="{% url 'monopolowy/index' %}">Strona główna</a></li>
+          <li><a class="link-underline-opacity-0 link-light" href="{% url 'monopolowy/login' %}">Logowanie</a></li>
+          <li><a class="link-underline-opacity-0 link-light" href="{% url 'monopolowy/zamowienia' %}">Zamówienia</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h5>Kontakt</h5>
+        <p>Sklep Monopolowy</p>
+        <p>ul. Przykładowa 123</p>
+        <p>00-000 Warszawa</p>
+        <p>Telefon: 123 456 789</p>
+      </div>
+      <div class="col-md-4">
+        <h5>Znajdź nas</h5>
+      </div>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
