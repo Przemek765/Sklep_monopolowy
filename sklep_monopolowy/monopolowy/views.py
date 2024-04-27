@@ -31,10 +31,20 @@ def logout(request):
 
 
 def zamowienia(request):
+    def get_kwota_zamowienia(id):
+        sql = f'SELECT monopolowy_asortyment.id, SUM(monopolowy_asortyment.cena) as kwota FROM monopolowy_asortyment INNER JOIN main.monopolowy_zamowienie_asortyment mza on monopolowy_asortyment.id = mza.asortyment_id WHERE zamowienie_id = {str(id)}'
+        return Zamowienie.objects.raw(sql)[0].kwota
     if request.user.is_authenticated:
         zamowienie = Zamowienie.objects.get(klient_id=request.user.id)
+        koszt_zamowienia = []
+        for order in [zamowienie]:
+            koszt_zamowienia.append(
+                get_kwota_zamowienia(order.pk)
+            )
+
         context = {
             'zamowienia': [zamowienie],
+            'koszt_zamowienia': koszt_zamowienia,
             'logged_as_admin': request.user.is_superuser,
         }
         return render(request, 'monopolowy/zamowienia.html', context)
