@@ -5,14 +5,25 @@
 {% endblock %}
 
 {% block content %}
-<div class="container card">
-    <div class="card-head">Asortyment Edycja</div>
-    <div class="card-body">
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
-    </form>
+<div class="container row">
+    <div class="col-sm-10 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">Asortyment Edycja</h1>
+                <div class="card-text">
+                    <form method="post">
+                      {% csrf_token %}
+                      {{ form.as_p }}
+                      <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+                    </form>
+                </div>
+                <a href="{% url 'monopolowy/asortyment_details' object.id %}" class="btn btn-primary mt-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

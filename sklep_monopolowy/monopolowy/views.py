@@ -1,8 +1,8 @@
 from django.contrib.auth import authenticate
-from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect
 import django.contrib.auth
+from django.urls import reverse
 from django.views.generic import UpdateView
 
 from .models import Zamowienie, Asortyment
@@ -77,6 +77,7 @@ def asortyment_details(request, id):
         }
         return render(request, 'monopolowy/not_logged.html', context)
 
+
 # @user_passes_test(lambda u: u.is_superuser)
 class AsortymentUpdateView(UpdateView):
     model = Asortyment
@@ -88,6 +89,10 @@ class AsortymentUpdateView(UpdateView):
         'zdjecie'
     ]
     template_name = 'monopolowy/asortyment/asortyment_edit.html'
+
+    def get_success_url(self):
+        return reverse('monopolowy/asortyment_details', kwargs={'id': self.object.pk})
+
 
 def login(request):
     if request.user.is_authenticated:
