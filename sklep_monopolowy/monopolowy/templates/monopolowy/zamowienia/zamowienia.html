@@ -8,7 +8,12 @@
 
 {% block content %}
     <div class="container">
-    <h1>Zamówienia</h1>
+    <div class="row position-relative">
+        <h1 class="col-5">Zamówienia</h1>
+        <a class="btn btn-primary position-absolute col-sm-3 col-lg-2 end-0" href="{% url 'monopolowy/zamowienia_new' %}">
+            Nowe zamówienie
+        </a>
+    </div>
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -16,6 +21,7 @@
             <th scope="col">Asortyment</th>
             <th scope="col">Data</th>
             <th scope="col">Kwota</th>
+            <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -47,6 +53,7 @@
                                 <img height="82" src="{% static 'monopolowy/pictures/'|add:asortyment.zdjecie %}"  alt=""/>
                             </td>
                         {% endif %}
+                        
                     </tr>
                 {% if not forloop.last %} {% endif %}
                 {% endfor %}
@@ -55,6 +62,11 @@
                 </td>
             <td>{{ zamowienie.data }}</td>
             <td>{{ koszt_zamowienia|index:forloop.counter0 }} zł</td>
+            <td>
+               <a class="btn btn-danger" href="{% url 'monopolowy/zamowienia_delete_confirm' zamowienie.id %}">
+                   Anuluj
+               </a> 
+            </td>
         </tr>
         {% endfor %}
       </tbody>

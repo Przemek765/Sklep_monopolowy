@@ -35,26 +35,80 @@ def zamowienia(request):
         sql = f'SELECT monopolowy_asortyment.id, SUM(monopolowy_asortyment.cena) as kwota FROM monopolowy_asortyment INNER JOIN main.monopolowy_zamowienie_asortyment mza on monopolowy_asortyment.id = mza.asortyment_id WHERE zamowienie_id = {str(id)}'
         return Zamowienie.objects.raw(sql)[0].kwota
     if request.user.is_authenticated:
-        zamowienie = Zamowienie.objects.get(klient_id=request.user.id)
+        zamowienie = Zamowienie.objects.filter(klient_id=request.user.id)
         koszt_zamowienia = []
-        for order in [zamowienie]:
+        for order in zamowienie:
             koszt_zamowienia.append(
                 get_kwota_zamowienia(order.pk)
             )
 
         context = {
-            'zamowienia': [zamowienie],
+            'zamowienia': zamowienie,
             'koszt_zamowienia': koszt_zamowienia,
             'logged_as_admin': request.user.is_superuser,
         }
-        return render(request, 'monopolowy/zamowienia.html', context)
+        return render(request, 'monopolowy/zamowienia/zamowienia.html', context)
     else:
         context = {
             'error': 'Błąd logowania',
             'error_details': 'Nie jesteś zalogowany do konta.'
         }
-        return render(request, 'monopolowy/not_logged.html', context)
+        return render(request, 'monopolowy/error.html', context)
 
+
+def zamowienia_new(request):
+    if request.user.is_authenticated:
+        context = {
+            'title': 'Nowe zamówienie',
+            'logged_as_admin': request.user.is_superuser,
+        }
+        return render(request, 'monopolowy/zamowienia/new.html', context)
+    else:
+        context = {
+            'error': 'Błąd logowania',
+            'error_details': 'Nie jesteś zalogowany do konta.'
+        }
+        return render(request, 'monopolowy/error.html', context)
+
+
+def zamowienia_delete(request, id):
+    if request.user.is_authenticated:
+        if Zamowienie.objects.get(klient_id=request.user.id, id=id):
+            Zamowienie.objects.get(klient_id=request.user.id, id=id).delete()
+            return redirect('monopolowy/zamowienia')
+        else:
+            context = {
+                'error': 'Error 404',
+                'error_details': 'Coś poszło nie tak!'
+            }
+            return render(request, 'monopolowy/error.html', context)
+    else:
+        context = {
+            'error': 'Błąd logowania',
+            'error_details': 'Nie jesteś zalogowany do konta.'
+        }
+        return render(request, 'monopolowy/error.html', context)
+
+def zamowienia_delete_confirm(request, id):
+    if request.user.is_authenticated:
+        if Zamowienie.objects.get(klient_id=request.user.id, id=id):
+            context = {
+                'title': 'Confirm',
+                'id': id
+            }
+            return render(request, 'monopolowy/zamowienia/confirm.html', context)
+        else:
+            context = {
+                'error': 'Error 404',
+                'error_details': 'Coś poszło nie tak!'
+            }
+            return render(request, 'monopolowy/error.html', context)
+    else:
+        context = {
+            'error': 'Błąd logowania',
+            'error_details': 'Nie jesteś zalogowany do konta.'
+        }
+        return render(request, 'monopolowy/error.html', context)
 
 def asortyment(request):
     if request.user.is_authenticated and request.user.is_superuser:
@@ -69,7 +123,15 @@ def asortyment(request):
             'error': 'Błąd uprawnień',
             'error_details': 'Nie masz uprawnień dostępu do tej strony.'
         }
-        return render(request, 'monopolowy/not_logged.html', context)
+        return render(request, 'monopolowy/error.html', context)
+
+
+def asortyment_delete(request, id):
+    pass
+
+
+def asortyment_delete_confirm(request, id):
+    pass
 
 
 def asortyment_details(request, id):
@@ -85,7 +147,7 @@ def asortyment_details(request, id):
             'error': 'Błąd uprawnień',
             'error_details': 'Nie masz uprawnień dostępu do tej strony.'
         }
-        return render(request, 'monopolowy/not_logged.html', context)
+        return render(request, 'monopolowy/error.html', context)
 
 
 # @user_passes_test(lambda u: u.is_superuser)

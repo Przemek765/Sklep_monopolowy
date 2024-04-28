@@ -8,6 +8,12 @@
 {% block content %}
 <div class="container">
   <div class="row">
+    <div class="row mb-3">
+        <h2>Asortyment</h2>
+        <a class="position-absolute end-0 btn btn-primary col-lg-1 col-md-2 col-sm-3 col-3" href="#">
+            Dodaj
+        </a>
+    </div>
     {% for item in asortyment %}
     <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
     <a class="link-dark link-underline-opacity-0" href="{% url 'monopolowy/asortyment_details' item.id %}">

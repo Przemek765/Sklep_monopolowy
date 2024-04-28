@@ -1,0 +1,26 @@
+{% extends 'monopolowy/base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Czy na pewno chcesz usunąć asortyment?</div>
+                <div class="card-body">
+                    <p class="mb-4">Asortyment zostanie bezpowrotnie usunięty i nie będzie można go przywrócić</p>
+                    <a href="{% url 'monopolowy/zamowienia_delete' id %}" class="btn btn-danger btn-sm">
+                        Usuń asortyment
+                    </a>
+                    <a href="{% url 'monopolowy/zamowienia' %}" class="btn btn-primary btn-sm position-absolute end-0 mx-3">
+                        Powrót
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
