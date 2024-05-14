@@ -10,9 +10,11 @@ from .models import Zamowienie, Asortyment
 
 # Create your views here.
 def index(request):
+    carousel_items = Asortyment.objects.raw('SELECT * FROM monopolowy_asortyment WHERE length(zdjecie) > 0 AND zdjecie IS NOT NULL LIMIT 3')
     context = {
         'logged_as_admin': request.user.is_superuser,
         'username': request.user.username,
+        'carousel': carousel_items,
     }
 
     return render(request, 'monopolowy/home.html', context)

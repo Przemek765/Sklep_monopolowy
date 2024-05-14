@@ -18,12 +18,21 @@
             min-height: 80%;
             position: relative;
         }
+        .footer-link {
+            text-decoration: none;
+        }
+        .footer-link:hover {
+            text-decoration: underline;
+            text-decoration-color: white;
+        }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container position-relative">
-            <a class="navbar-brand" href="{% url 'monopolowy/index' %}">Monopolowy</a>
+            <a class="navbar-brand" href="{% url 'monopolowy/index' %}">
+                Monopolowy
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -62,7 +71,7 @@
 
 <footer class="bg-dark text-white py-3">
     <style>
-        footer a, p {
+        footer a, footer p {
             font-size: 12px;
             line-height: 7px;
         }
@@ -76,17 +85,17 @@
       <div class="col-md-4">
         <h5>Nawigacja</h5>
         <ul class="list-unstyled">
-          <li><a class="link-underline-opacity-0 link-light" href="{% url 'monopolowy/index' %}">Strona główna</a></li>
-          <li><a class="link-underline-opacity-0 link-light" href="{% url 'monopolowy/login' %}">Logowanie</a></li>
-          <li><a class="link-underline-opacity-0 link-light" href="{% url 'monopolowy/zamowienia' %}">Zamówienia</a></li>
+          <li><a class="link-light footer-link" href="{% url 'monopolowy/index' %}">Strona główna</a></li>
+          <li><a class="link-light footer-link" href="{% url 'monopolowy/login' %}">Logowanie</a></li>
+          <li><a class="link-light footer-link" href="{% url 'monopolowy/zamowienia' %}">Zamówienia</a></li>
         </ul>
       </div>
       <div class="col-md-4">
         <h5>Kontakt</h5>
         <p>Sklep Monopolowy</p>
-        <p>ul. Przykładowa 123</p>
-        <p>00-000 Warszawa</p>
-        <p>Telefon: 123 456 789</p>
+        <p>ul. Startowa 69</p>
+        <p>80-209 Warszawa</p>
+        <p>Telefon: 454 756 729</p>
       </div>
       <div class="col-md-4">
         <h5>Znajdź nas</h5>
